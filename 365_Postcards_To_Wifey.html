@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA / Home Screen Settings for Android & iOS -->
+    <title>365 Reasons You're Amazing</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffd3e0">
+    <link rel="apple-touch-icon" href="https://images.emojiterra.com/google/android-11/512px/1f48c.png">
+
+    <!-- Dynamic Web App Manifest generated via Data URL -->
+    <link rel="manifest" href='data:application/manifest+json,{
+        "name": "365 Reasons You\'re Amazing",
+        "short_name": "365 Reasons",
+        "start_url": "./365_Postcards_For_My_Wife.html",
+        "display": "standalone",
+        "background_color": "#ffd3e0",
+        "theme_color": "#ffd3e0",
+        "icons": [{
+            "src": "https://images.emojiterra.com/google/android-11/512px/1f48c.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }]
+    }'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Dancing+Script:wght@700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ffb7b2;
+            --secondary: #ffdac1;
+            --text-dark: #5d4037;
+            --bg-gradient: linear-gradient(135deg, #ffd3e0 0%, #fde2e4 100%);
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --paper: #fffdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overscroll-behavior-y: none; 
+        }
+
+        /* Ambient Floating Lotuses (Background) */
+        .lotus-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .lotus {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: floatup 15s linear infinite;
+            opacity: 0.35;
+        }
+        @keyframes floatup {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Raining Emojis */
+        .rain-emoji {
+            position: fixed;
+            top: -50px;
+            pointer-events: none;
+            z-index: 1000;
+            font-size: 1.6rem;
+            animation: fall linear forwards;
+            opacity: 0.75;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(25deg);
+                opacity: 0.1;
+            }
+        }
+
+        /* Burst Emojis */
+        .burst-emoji {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1001;
+            font-size: 1.8rem;
+            animation: burstAnim 0.7s ease-out forwards;
+        }
+        @keyframes burstAnim {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.3) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 850px;
+            width: 95%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Glassmorphism Outer Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 12px 40px 0 rgba(255, 183, 178, 0.45);
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+        }
+
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #d81b60;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 3.8rem; line-height: 1.2; text-shadow: 2px 2px 4px rgba(216, 27, 96, 0.15); }
+        h2 { font-size: 2.8rem; }
+        
+        p.intro-text {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #4e342e;
+            padding: 0 15px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #d81b60, #ad1457);
+            color: white;
+            border: none;
+            padding: 16px 38px;
+            font-size: 1.25rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer; 
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.35);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 20; 
+        }
+        .btn:hover { 
+            transform: translateY(-4px) scale(1.02); 
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.45); 
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 6px 20px rgba(156, 39, 176, 0.35); }
+            50% { transform: scale(1.05); box-shadow: 0 10px 25px rgba(156, 39, 176, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 6px 20px rgba(156, 39, 176, 0.35); }
+        }
+
+        .calendar-btn { 
+            background: linear-gradient(45deg, #ff9800, #f57c00);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3); 
+            margin-bottom: 20px; 
+            margin-right: 10px;
+        }
+        .calendar-btn:hover { 
+            background: linear-gradient(45deg, #f57c00, #e65100);
+            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4); 
+        }
+        
+        .gallery-btn {
+            background: linear-gradient(45deg, #4caf50, #2e7d32);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3); 
+            margin-bottom: 20px;
+        }
+        .gallery-btn:hover {
+            background: linear-gradient(45deg, #388e3c, #1b5e20);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4); 
+        }
+
+        .graphics-bar { font-size: 2.2rem; margin: 25px 0; letter-spacing: 15px; }
+
+        /* Screens */
+        #app-screen { display: none; }
+        #gallery-screen { display: none; width: 100%; max-width: 900px; }
+        
+        /* Gallery Design */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 10px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(216, 27, 96, 0.3) transparent;
+        }
+        .gallery-grid::-webkit-scrollbar { width: 8px; }
+        .gallery-grid::-webkit-scrollbar-track { background: transparent; }
+        .gallery-grid::-webkit-scrollbar-thumb { background: rgba(216, 27, 96, 0.3); border-radius: 10px; }
+        
+        .gallery-item {
+            background: var(--paper);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px dashed #e8d5c4;
+            position: relative;
+            z-index: 20;
+        }
+        .gallery-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.15);
+            border-color: rgba(216, 27, 96, 0.3);
+        }
+        .gallery-item h4 {
+            font-family: 'Caveat', cursive;
+            color: #d81b60;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+        .gallery-item .g-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #4e342e;
+        }
+        .gallery-item .g-preview {
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            color: #666;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.3;
+        }
+
+        /* Postcard Design */
+        .postcard {
+            background: var(--paper);
+            border-radius: 12px;
+            margin-top: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12), inset 0 0 20px rgba(0,0,0,0.04);
+            display: flex;
+            position: relative;
+            text-align: left;
+            animation: fadeIn 1s ease-in;
+            overflow: hidden;
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #e0e0e0 31px, #e0e0e0 32px);
+            background-size: 100% 32px;
+            background-position: 0 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .postcard:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.15), inset 0 0 20px rgba(0,0,0,0.04);
+        }
+
+        .postcard::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 2px dashed #e8d5c4;
+            margin: 10px;
+            border-radius: 6px;
+            pointer-events: none;
+        }
+
+        .postcard-left {
+            flex: 1.3;
+            padding: 45px 35px;
+            border-right: 2px solid rgba(216, 27, 96, 0.15);
+            position: relative;
+            z-index: 2;
+        }
+
+        .postcard-right {
+            flex: 0.7;
+            padding: 35px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: var(--paper); 
+        }
+
+        .postcard h3 {
+            font-family: 'Caveat', cursive;
+            color: #d81b60;
+            margin-bottom: 15px;
+            font-size: 2.4rem;
+            background: var(--paper);
+            display: inline-block;
+            padding-right: 15px;
+        }
+
+        .postcard p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.7rem;
+            line-height: 32px; 
+            font-weight: 600;
+            color: #4a4a4a;
+            white-space: pre-line;
+            margin-top: -8px; 
+        }
+
+        /* Postcard Decor */
+        .stamp-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: auto;
+            position: relative;
+        }
+        .stamp {
+            width: 75px;
+            height: 90px;
+            background: #ffebee;
+            border: 3px dotted #ffcdd2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            transform: rotate(6deg);
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .stamp:hover { transform: rotate(0deg) scale(1.05); }
+
+        .postmark {
+            position: absolute;
+            top: 15px;
+            right: 50px;
+            width: 95px;
+            height: 95px;
+            border: 3px double rgba(0,0,0,0.15);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: rgba(0,0,0,0.35);
+            transform: rotate(-18deg);
+            text-transform: uppercase;
+            font-family: monospace;
+            font-weight: bold;
+            z-index: 3;
+        }
+        .address {
+            margin-top: 50px;
+        }
+        .address-line {
+            border-bottom: 2px solid #bcaaa4;
+            height: 38px;
+            width: 100%;
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .handwriting {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.1rem;
+            color: #d81b60;
+            position: absolute;
+            bottom: 4px;
+            left: 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .small-btn {
+            background: var(--secondary);
+            color: var(--text-dark);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.05rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .small-btn:hover { background: #d81b60; color: white; transform: translateY(-2px); }
+
+        .locked-msg { font-style: italic; color: #888; margin-top: 25px; font-weight: bold; font-size: 1.1rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .postcard { flex-direction: column; background-image: none; padding-top: 15px;}
+            .postcard-left { border-right: none; border-bottom: 2px dashed rgba(216, 27, 96, 0.2); padding: 25px; }
+            .postcard p { line-height: 1.6; margin-top: 0; font-size: 1.5rem; }
+            .postcard-right { padding: 25px; }
+            .stamp { width: 60px; height: 75px; font-size: 2rem; }
+            .postmark { width: 80px; height: 80px; top: 0px; right: 35px; }
+            h1 { font-size: 3rem; }
+            .calendar-btn, .gallery-btn { width: 100%; margin-right: 0; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lotus-bg" id="bg-decor"></div>
+
+    <div class="container">
+        
+        <!-- FIRST PAGE / WELCOME SCREEN -->
+        <div id="welcome-screen" class="glass-card">
+            <div class="graphics-bar">🌸🐶💮🐶🌸</div>
+            
+            <h1 style="margin-bottom: 30px;">To My Beautiful Wife,</h1>
+            
+            <p class="intro-text" style="font-size: 1.5rem; font-weight: 700; color: #d81b60;">
+                I am very grateful, blessed and lucky to have someone as amazing as you whom I can proudly call my Life partner, My Wife.
+            </p>
+            
+            <p class="intro-text" style="margin-top: 20px; font-size: 1.35rem;">
+                And it’s just a little try to tell you how amazing you are over a span of a year because it can’t be covered in just a day.
+            </p>
+            
+            <button class="btn" style="background: linear-gradient(45deg, #9c27b0, #7b1fa2); padding: 18px 40px; font-size: 1.35rem; margin-top: 30px; animation: pulse 2s infinite;" onclick="startJourney()">
+                See yourself through my eyes ✨
+            </button>
+            
+            <div class="graphics-bar" style="font-size: 2.2rem; margin-top: 35px;">🤍 🐾 ✨ 🐾 🤍</div>
+        </div>
+
+        <!-- POSTCARDS SCREEN -->
+        <div id="app-screen" class="glass-card">
+            <h2>365 Reasons You're Amazing</h2>
+            
+            <div>
+                <button class="btn calendar-btn" onclick="downloadCalendarEvent()">📅 Get 7:00 AM Alerts</button>
+                <button class="btn gallery-btn" onclick="openGallery()">📚 Read Previous Postcards</button>
+            </div>
+            
+            <h3 id="day-counter" style="margin-top: 20px; color: #5d4037; font-size: 1.4rem;">Day 31 of 365</h3>
+            
+            <div class="postcard" id="message-container">
+                <div class="postcard-left">
+                    <h3 id="msg-title">Title</h3>
+                    <p id="msg-body">Body</p>
+                </div>
+                <div class="postcard-right">
+                    <div class="stamp-container">
+                        <div class="stamp">🐶</div>
+                        <div class="postmark">
+                            <span>EXPRESS</span>
+                            <span>LOVE 💮</span>
+                            <span>MAIL</span>
+                        </div>
+                    </div>
+                    <div class="address">
+                        <div class="address-line">
+                            <span class="handwriting">To: My Beautiful Wife</span>
+                        </div>
+                        <div class="address-line">
+                            <span class="handwriting">The Absolute Best Thing</span>
+                        </div>
+                        <div class="address-line">
+                            <span class="handwriting">That Ever Happened To Me</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="locked-msg" id="locked-msg" style="display: none;">🔒 Tomorrow's postcard is still traveling to you! It unlocks at 7:00 AM. I love you! ❤️</p>
+
+            <div class="controls">
+                <button class="small-btn" onclick="prevDay()">⬅️ Previous Day</button>
+                <button class="small-btn" onclick="nextDay()">Next Day ➡️</button>
+            </div>
+        </div>
+
+        <!-- GALLERY SCREEN -->
+        <div id="gallery-screen" class="glass-card">
+            <h2>Our Journey So Far 💌</h2>
+            <p style="margin-bottom: 20px; font-weight: bold; color: #4e342e;">A collection of all your unlocked reasons.</p>
+            
+            <button class="small-btn" style="margin-bottom: 10px;" onclick="showAppScreen()">⬅️ Back to Today's Postcard</button>
+            
+            <div id="gallery-grid" class="gallery-grid">
+                <!-- Gallery items injected here via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. THE DATA PARSER ---
+        const rawData = `Day 1 – Kindness 💛
+Hey Munchkin 🥹,
+Today I wanted to appreciate your kindness. Not just the big gestures, but the little things you do without even thinking about them. The way you make people feel comfortable, the way you care, and the way you notice things others miss. It says so much about your heart. 🌷❤️
+
+Day 2 – Honesty 🤍
+Hey Sunshine ☀️,
+One thing I genuinely admire about you is your honesty. You have this refreshing way of being yourself without pretending to be someone else. It makes every conversation feel real, and honestly, that’s one of my favourite things about talking to you. 🥰
+
+Day 3 – Empathy 🌸
+Hey Sweetpea 🌷,
+Your ability to understand people is beautiful. You seem to know when someone needs support, encouragement, or simply someone to listen. That’s a rare quality, and it’s something I deeply admire about you. 💕
+
+Day 4 – Patience 🌼
+Hey Buttercup 🌼,
+Patience isn’t always noticed, but I notice yours. You have a calmness about you that makes people feel comfortable around you. It reminds me that not everything needs to be rushed, and I think that’s a lovely thing. 😊
+
+Day 5 – Loyalty 🫶
+Hey Lovebug 🐞,
+Loyalty is one of those qualities that becomes more valuable the older we get. The way you stay true to the people you care about is genuinely admirable. It makes me appreciate you even more every day. ❤️
+
+Day 6 – Curiosity ✨
+Hey Cupcake 🧁,
+I love how curious you are. You ask questions, notice details, and seem genuinely interested in the world around you. It makes every conversation with you more interesting and every story more fun. 🌸
+
+Day 7 – Thoughtfulness 🌹
+Hey Cherry Blossom 🌸,
+You have a habit of remembering little things that most people would forget. It might seem small, but it makes people feel valued. That’s a beautiful quality to have, and it’s one of the reasons you’re so easy to appreciate. 💖
+
+Day 8 – Resilience 🌻
+Hey Moonbeam 🌙,
+Life isn’t always easy, but you’ve shown a strength that deserves recognition. The fact that you keep moving forward, even during difficult times, is something I truly admire. You’re stronger than you realize. 🌷
+
+Day 9 – Warmth ☀️
+Hey Honeybee 🐝,
+There’s a warmth about you that makes people feel welcome. Some people walk into a room and change the atmosphere; you do that in the nicest way possible. Being around you feels comfortable and easy. 🥰
+
+Day 10 – Authenticity 💎
+Hey Precious 💎,
+One of the best things about you is that you’re unapologetically yourself. You don’t try to fit into someone else’s idea of who you should be. That authenticity is incredibly attractive and something I respect a lot. ❤️
+
+Day 11 – Generosity 🎁
+Hey Snugglebug 🧸,
+One thing I admire about you is your generosity. Not just with things, but with your time, attention, and kindness. You have a way of making people feel important, and that’s something truly special. The world could always use more people like you. 💕🌷
+
+Day 12 – Gratitude 🌼
+Hey Jellybean 🍬,
+I love how you appreciate the little things. A good day, a kind gesture, a simple conversation—you never seem to take those things for granted. It’s a beautiful reminder that happiness often lives in the smallest moments. 🥰
+
+Day 13 – Reliability 🤍
+Hey Bunny 🐰,
+Knowing someone is reliable brings a certain kind of comfort, and you have that quality naturally. You’re someone people can count on, and that’s something that deserves more appreciation than it usually gets. 🌷
+
+Day 14 – Creativity 🎨
+Hey Peaches 🍑,
+Your creativity is something I genuinely enjoy. Whether it’s the way you think, the way you see things, or the way you express yourself, you have a unique perspective that makes life more interesting. Never lose that. 💖
+
+Day 15 – Optimism ☀️
+Hey Starlight ✨,
+One of my favourite things about you is your optimism. Even when things aren’t perfect, you somehow manage to find something positive to hold on to. That kind of outlook is rare, and honestly, it’s contagious in the best way possible. 🌸❤️
+
+Day 16 – Courage 🦋
+Hey Angel Eyes 👼,
+Sometimes courage isn’t about doing something dramatic. Sometimes it’s simply showing up, trying again, or facing a challenge when you’d rather avoid it. I’ve seen that courage in you, and it’s something I admire a lot. ❤️
+
+Day 17 – Understanding 🌹
+Hey Dumpling 🥟,
+You have this wonderful ability to understand people without judging them. It makes talking to you feel easy and comfortable. Not everyone has that gift, but you do, and it’s one of the many reasons you’re so lovely to be around. 🥰
+
+Day 18 – Self-Awareness 🌷
+Hey Cookie 🍪,
+One thing that stands out about you is your self-awareness. You seem to understand yourself better than most people do, and that’s a quality that leads to so much growth and wisdom. It’s genuinely impressive. 💕
+
+Day 19 – Enthusiasm 🌟
+Hey Cinnamon Roll 🤎,
+Your enthusiasm has a way of making things more fun. Whether it’s a new idea, a plan, or something you’re passionate about, your excitement is infectious. It’s impossible not to smile when you light up about something. 😊✨
+
+Day 20 – Confidence 🌷
+Hey Pumpkin 🎃,
+Your confidence is such a beautiful quality. Not because you’re loud or attention-seeking, but because you’re comfortable being yourself. That quiet confidence is incredibly attractive and something I genuinely admire about you. 🥰
+
+Day 21 – Fairness ⚖️
+Hey Little Star ⭐,
+One thing I admire about you is your fairness. You always try to see both sides of a situation before making a judgment. It shows how thoughtful and mature you are, and it’s one of the reasons people feel comfortable talking to you. 💛
+
+Day 22  – Humility 🌻
+Hey Sweetheart 💖,
+You have so many qualities worth being proud of, yet you carry yourself with such humility. You never feel the need to show off or seek attention, and somehow that makes you shine even brighter. It’s one of those quiet qualities that makes a person truly beautiful.
+
+Day 23 – Open-Mindedness 🌍
+Hey Petal 🌸,
+I love how open-minded you are. You’re willing to listen, learn, and understand perspectives that may be different from your own. That curiosity and willingness to grow make you such an interesting person to talk to. 💕
+
+Day 24 – Friendliness ☀️
+Hey Sunshine Girl ☀️,
+You have a way of making people feel welcome almost instantly. Your friendliness isn’t forced; it’s natural. It’s one of those qualities that brightens a room without even trying. ❤️
+
+Day 25 – Determination 🚀
+Hey Love Muffin 🧁,
+When you set your mind on something, you don’t give up easily. That determination is something I deeply respect. It reminds me that behind your sweet side, there’s also a strong and driven person. 🌷
+
+Day 26 – Wisdom 📚
+Hey Sweet Cheeks 😊,
+You have a way of looking at situations that often surprises me. Your thoughts are thoughtful, balanced, and mature. It’s one of those qualities that makes me enjoy our conversations even more. 💖
+
+Day 27 – Adaptability 🍃
+Hey Daisy 🌼,
+Life doesn’t always go according to plan, but I admire how you adapt when things change. Instead of letting challenges stop you, you find a way forward. That’s a strength that deserves recognition. 🌸
+
+Day 28 – Cheerfulness 🌈
+Hey Sparkles ✨,
+Your cheerful energy is one of my favourite things about you. Even a simple message from you can make my day a little better. You have a smile that seems to spread happiness wherever it goes. 🥰
+
+Day 29 – Passion 🔥
+Hey My Lovely 🌹,
+I love seeing you talk about things you care about. There’s something so beautiful about watching someone’s eyes light up when they’re passionate about something. That excitement makes you even more amazing. ❤️
+
+Day 30 – Dependability 🤝
+Hey Teddy Bear 🧸,
+One thing that makes you special is that people know they can rely on you. You show up, you care, and you mean what you say. Dependable people are rare, and it’s one of the many reasons you’re so easy to appreciate.
+
+Day 31 – Gentleness 🌷
+Hey Butterbean 🧸,
+One thing I absolutely adore about you is your gentleness. The way you speak, care, and handle situations shows a softness that’s incredibly comforting. Being around someone with a gentle heart feels like finding a quiet place on a busy day. 💕🌸
+
+Day 32 – Resourcefulness 🛠️
+Hey Honeybun 🍯,
+I admire how resourceful you are. No matter what comes your way, you somehow find a solution or a different path forward. It’s such an underrated quality, but it’s one of the things that makes you genuinely impressive. ✨❤️
+
+Day 33 – Supportiveness 🤗
+Hey Snickerdoodle 🍪,
+You have a wonderful way of making people feel supported. Whether it’s through your words, your presence, or simply listening, you make people feel less alone. That’s a gift, and I hope you know how much it means. 🥰
+
+Day 34 – Authenticity 🌹
+Hey Rosebud 🌹,
+One thing I never want you to change is how authentic you are. You don’t pretend to be someone you’re not, and that’s incredibly refreshing. The real you is already amazing. 💖
+
+Day 35 – Mindfulness 🍃
+Hey Little Blossom 🌸,
+I love how mindful you are. You notice things that many people overlook and appreciate moments that others rush past. It’s a beautiful reminder to slow down and enjoy life a little more. 🌷
+
+Day 36 – Grace 🦢
+Hey Darling Heart 💕
+You carry yourself with so much grace. Whether things are going well or not, you have a way of handling situations with kindness and dignity. It’s one of those qualities that quietly stands out. ✨
+
+Day 37 – Maturity 🌻
+Hey Sugarplum 🍬,
+Your maturity is something I truly respect. You know how to handle situations thoughtfully without unnecessary drama. It makes me admire you not just as someone I like, but as a person. ❤️
+
+Day 38 – Self-Discipline 💪
+Hey Pudding 🥹,
+I admire the effort you put into the things that matter to you. Self-discipline isn’t always visible, but it’s what helps people grow and achieve their goals. It’s one of your strengths, and it deserves recognition. 🌸
+
+Day 39 – Forgiveness 🤍
+Hey Peach Blossom 🍑,
+Your ability to forgive says a lot about your heart. It takes strength to let go of hurt and move forward. Not everyone can do that, and it’s one of the qualities I genuinely admire in you. 💕
+
+Day 40 – Positivity ☀️
+Hey Twinkle Toes ✨,
+One of my favourite things about you is the positivity you bring into conversations. Even on ordinary days, you somehow make things feel lighter and brighter. That’s a beautiful impact to have on people, and you do it naturally.
+
+Day 41 – Self-Awareness 🌷
+Hey Ladybug 🐞,
+One thing I admire about you is your self-awareness. You understand yourself in a way that many people spend years trying to achieve. It helps you grow, learn, and become an even better version of yourself. That’s something truly beautiful. 💖
+
+Day 42 – Tactfulness 🎀
+Hey Marshmallow ☁️,
+You have a wonderful way of saying the right thing at the right time. You communicate honestly while still being considerate of others’ feelings. That’s a rare skill, and it makes people feel comfortable around you. 🥰
+
+Day 43 – Curiosity 🔍
+Hey Sweet Pea 🌸,
+I love how curious you are about life. You ask questions, explore ideas, and genuinely want to understand things. It makes every conversation with you feel interesting and meaningful. ✨
+
+Day 44 – Courageous Honesty 🤍
+Hey Little Dove 🕊️,
+Being honest isn’t always easy, especially when it’s uncomfortable. I admire how you choose honesty even when it’s difficult. It shows strength, character, and a beautiful level of authenticity. ❤️
+
+Day 45 – Compassion 🌹
+Hey Lovebird 🐦,
+Your compassion is one of the most beautiful things about you. You care deeply about people, and it shows in the way you listen, support, and encourage them. The world needs more hearts like yours. 💕
+
+Day 46 – Independence 🌻
+Hey Blossom 🌼,
+I admire how independent you are. You know who you are, you make your own decisions, and you don’t rely on others to define your worth. That confidence and strength are incredibly attractive. 🌷
+
+Day 47 – Reliability ⭐
+Hey My Moon 🌙,
+One thing that stands out about you is that you’re someone people can depend on. You keep your word, show up when it matters, and genuinely care. That’s a quality that builds trust and admiration. 💖
+
+Day 48 – Humour 😄
+Hey Giggles 😊,
+I absolutely love your sense of humour. Whether it’s a funny comment, a random joke, or just the way you react to things, you have a way of making life more fun. A smile from you can instantly improve my day. 🥰✨
+
+Day 49 – Emotional Intelligence 💞
+Hey Sugar Cookie 🍪,
+You understand emotions in a way that makes people feel seen and understood. You know when to listen, when to comfort, and when to simply be there. That’s a beautiful gift, and it’s something I admire deeply. 🌸
+
+Day 50 – Beautiful Heart ❤️
+Hey My Favourite Human 🥹,
+For Day 50, I wanted to appreciate something bigger than a single quality—your heart. All the kindness, warmth, patience, humour, and care that make you who you are come from there. The more I get to know you, the more I realize how lucky I am to know someone as wonderful as you. Never forget that you are genuinely special, and I hope you always see even a fraction of the beauty that others see in you.
+
+Day 51 – Calmness 🌿
+Hey Bluebell 🌸,
+One thing I admire about you is your calmness. Even when life gets a little messy, you have a way of staying grounded. That peaceful energy makes people feel comfortable around you, and honestly, it’s one of the things I find most comforting about you. 💚✨
+
+Day 52 – Attentiveness 👀
+Hey Sweetkins 🥰,
+I love how attentive you are. You notice little details that most people miss, and those small observations make people feel seen and valued. It’s a quiet quality, but it’s one of the reasons you’re so special. 🌷💕
+
+Day 53 – Encouragement 🌟
+Hey Firefly ✨,
+You have a beautiful way of encouraging people. Whether it’s a kind word or simply believing in someone, you help people feel more confident than they did before. That’s a wonderful gift to have. ❤️
+
+Day 54 – Fair-Mindedness ⚖️
+Hey Butterbean 💛,
+I admire how fair-minded you are. You don’t jump to conclusions, and you always try to understand the full picture. It shows wisdom, maturity, and a genuinely good heart. 🌸
+
+Day 55 – Determination 💪
+Hey Peach Pie 🍑,
+Your determination is inspiring. When something matters to you, you give it your all. Watching you work toward your goals reminds me how strong and capable you really are. 🥹✨
+
+Day 56 – Humbleness 🌼
+Hey Petunia 🌷,
+One thing I love about you is how humble you are. You have so many qualities worth bragging about, yet you stay grounded and genuine. That quiet confidence is incredibly beautiful. 💖
+
+Day 57 – Open-Heartedness ❤️
+Hey Lovebug Deluxe 🐞,
+You have such an open heart. You care deeply, love sincerely, and allow people to feel safe around you. That’s not something everyone can do, and it’s one of the many reasons you’re so wonderful. 🌹
+
+Day 58 – Flexibility 🍃
+Hey Bunny Boo 🐰,
+Life doesn’t always go according to plan, but I admire how adaptable you are when things change. You adjust, learn, and keep moving forward. That’s a strength that deserves more credit than it gets. 🌸✨
+
+Day 59 – Good Judgment 🌟
+Hey Muffin 🧁,
+You have a way of thinking things through before making decisions, and I really admire that. Your judgment comes from a place of thoughtfulness and care, and it shows in the choices you make. 💕
+
+Day 60 – Inner Strength 🦋
+Hey Dreamgirl 🌙,
+Sometimes strength isn’t loud. Sometimes it’s simply getting through difficult days and continuing to move forward. You have that kind of strength. Even when you don’t realize it, your resilience shines through, and it’s one of the qualities I admire most about you.
+
+Day 61 – Grace 🌷
+Hey Daisy Mae 🌼,
+There’s something so beautiful about the way you carry yourself. You handle situations with kindness, maturity, and grace, even when things aren’t easy. It’s one of those qualities that quietly stands out and makes people admire you without even realizing why. 💖
+
+Day 62 – Sincerity 🤍
+Hey Honeydrop 🍯,
+One thing I adore about you is your sincerity. When you say something, you genuinely mean it. There’s no pretending, no games—just honesty and authenticity. It’s refreshing and incredibly attractive. 🥰
+
+Day 63 – Hopefulness ☀️
+Hey Sunshine Sprinkle ✨,
+I admire how you continue to look forward to good things, even when life gets complicated. That hopefulness is beautiful because it reminds everyone around you that better days are always possible. 🌸
+
+Day 64 – Consideration 💕
+Hey Rosiebug 🌹,
+You have a thoughtful way of considering how your actions affect others. It’s something many people overlook, but you do it naturally. That kindness and awareness make you such a lovely person to know. 🌷
+
+Day 65 – Bravery 🦋
+Hey Sweet Bunny 🐰,
+Being brave doesn’t always mean doing something dramatic. Sometimes it means facing a difficult day, having a hard conversation, or simply trying again. I’ve seen that bravery in you, and I admire it more than you know. ❤️
+
+Day 66 – Wisdom 🌿
+Hey Little Rose 🌹,
+You often have a way of seeing things that others don’t. Your perspective is thoughtful and balanced, and I genuinely enjoy hearing what you think about things. Your wisdom is one of your most beautiful qualities. 💖
+
+Day 67 – Positivity 🌈
+Hey Cupcake Queen 🧁,
+You have a way of bringing positive energy wherever you go. Even simple conversations feel brighter because of you. It’s one of the many reasons people enjoy being around you—and one of the reasons I do too. 😊
+
+Day 68 – Patience 🌸
+Hey Peach Blossom 🍑,
+Your patience deserves more appreciation than it gets. You take your time, you listen, and you don’t rush people. That calm understanding makes others feel comfortable, and it’s something I truly admire. 💕
+
+Day 69 – Warm-Heartedness ❤️
+Hey Angel Cake 🎂,
+You have such a warm heart. People naturally feel safe around you because your kindness feels genuine. It’s one of those qualities that can’t be faked, and yours shines through effortlessly. 🌷
+
+Day 70 – Dependability 🌟
+Hey Moonflower 🌙,
+One thing I appreciate about you is that you’re dependable. You show up, you care, and people know they can count on you. That’s a rare quality these days, and it’s one of the many things that make you special.
+
+Day 71 – Creativity 🎨
+Hey Cherry Pie 🍒,
+I love the way your mind works. You have a creativity that makes ordinary things more interesting. Whether it’s your ideas, your perspective, or your imagination, it adds something special to the world around you. ✨
+
+Day 72 – Self-Respect 🌷
+Hey Love Nugget 🥹,
+One thing I admire about you is your self-respect. You know your worth, and you don’t settle for less than you deserve. That’s a beautiful quality because it comes from understanding your own value. 💕
+
+Day 73 – Compassion 🌸
+Hey Buttercup Blossom 🌼,
+Your compassion is one of the gentlest things about you. You care deeply about people and often put yourself in their shoes. The world becomes a little kinder because people like you exist. ❤️
+
+Day 74 – Reliability 🤝
+Hey Starling ⭐,
+You have this wonderful quality of doing what you say you’ll do. It builds trust and makes people feel secure around you. Reliability may not always get noticed, but it’s one of the things I appreciate most about you. 🌷
+
+Day 75 – Enthusiasm 🎉
+Hey Sugar Star ✨,
+I love seeing you excited about something. Your enthusiasm is contagious in the best possible way. Watching your eyes light up when you talk about something you enjoy always makes me smile. 🥰
+
+Day 76 – Humour 😄
+Hey Snuggle Muffin 🧸,
+Your sense of humour makes life more fun. Whether it’s a clever comment or something completely random, you have a way of making people laugh and feel lighter. That’s a gift, and you have it naturally. 💖
+
+Day 77 – Open-Mindedness 🌍
+Hey Little Sunbeam ☀️,
+I admire how willing you are to listen and learn. You don’t immediately dismiss ideas that are different from your own, and that openness makes you a genuinely interesting person. 🌸
+
+Day 78 – Courageousness 🦁
+Hey Sweet Petal 🌷,
+You are braver than you probably give yourself credit for. I’ve seen you face challenges, uncertainty, and difficult situations with courage. That’s a strength worth celebrating today. ❤️
+
+Day 79 – Thoughtfulness 🎀
+Hey Pookie Bear 🐻,
+You always seem to remember the little things. Whether it’s a detail from a conversation or a thoughtful gesture, you have a way of making people feel important. That’s something truly special. 💕
+
+Day 80 – Authenticity 💎
+Hey Lovely Dove 🕊️,
+The best thing about you is that you’re unapologetically yourself. You don’t try to be someone else, and that’s one of the reasons you’re so wonderful. The real you is already more than enough.
+
+Day 81 – Forgiveness 🤍
+Hey Sweet Cherry 🍒,
+One thing I admire about you is your ability to forgive. Letting go of hurt isn’t easy, yet you choose peace over holding onto negativity. That takes strength, maturity, and a truly beautiful heart. 🌷💕
+
+Day 82 – Determination 🚀
+Hey Honey Bunny 🐰,
+When you decide something matters to you, you give it your best effort. I love that about you. Your determination reminds me that good things happen when someone refuses to give up on what they care about. ❤️
+
+Day 83 – Fairness ⚖️
+Hey Little Treasure 💎,
+You always try to be fair, even when it’s easier not to be. You listen, think, and genuinely try to understand people before making judgments. That’s one of the many reasons I respect you so much. 🌸
+
+Day 84 – Emotional Strength 🌿
+Hey Peachy Pie 🍑,
+Not everyone sees the strength it takes to keep going through difficult moments, but I do. Your emotional strength shows up in quiet ways every day, and it’s something I deeply admire about you. 💖
+
+Day 85 – Encouragement 🌟
+Hey Sugar Bunny 🥹,
+You have this wonderful way of making people believe in themselves. Sometimes a few kind words from you can completely change someone’s day. That’s a beautiful gift to have. 🌷
+
+Day 86 – Humility 🌼
+Hey Little Daisy 🌼,
+Even with all your wonderful qualities, you never act like you’re above anyone else. Your humility makes you even more lovable because it comes from a place of genuine kindness. 💕
+
+Day 87 – Optimism ☀️
+Hey Sunshine Bean ☀️,
+I love that you can find a little light even on difficult days. Your optimism doesn’t ignore reality—it simply refuses to let negativity win. That’s something truly inspiring. ❤️
+
+Day 88 – Responsibility 🌹
+Hey Sweet Dumpling 🥟,
+One thing I respect about you is how responsible you are. You take your commitments seriously and always try to do the right thing. It shows a level of character that’s genuinely admirable. 🌸
+
+Day 89 – Sensitivity 💞
+Hey Angel Bunny 👼,
+Your sensitivity allows you to understand emotions that others sometimes miss. It’s one of the reasons you’re such a caring and thoughtful person. Never think that softness is weakness—it’s one of your strengths. 🌷
+
+Day 90 – Dedication ✨
+Hey Twinkle Star ⭐,
+When something matters to you, you commit to it wholeheartedly. That dedication is beautiful because it shows how much effort and care you put into the things and people you love.
+
+Day 91 – Independence 🦋
+Hey Love Dove 🕊️,
+I admire how independent you are. You know how to stand on your own feet while still caring deeply about others. That balance is rare, and it’s one of the many things that make you special. 💕
+
+Day 92 – Understanding 🌷
+Hey Baby Blossom 🌸,
+You have a way of understanding people without making them feel judged. That’s such a comforting quality, and it’s one of the reasons talking to you always feels easy. ❤️
+
+Day 93 – Loyalty 🤝
+Hey Cookie Crumble 🍪,
+Loyal people are hard to find, and you’re one of them. The way you stay true to the people you care about says everything about the kind of person you are. 🌹
+
+Day 94 – Confidence 💎
+Hey Sweet Angel 😇,
+Your confidence isn’t loud or boastful—it’s genuine. You trust yourself, and that’s incredibly attractive. I hope you always remember how capable and amazing you are. 🌷
+
+Day 95 – Diplomacy 🌍
+Hey Little Moon 🌙,
+I admire how well you handle disagreements and difficult situations. You know how to be honest while still being kind, and that’s a quality that deserves appreciation. 💖
+
+Day 96 – Gratitude 🌻
+Hey Snuggle Bunny 🐰,
+One thing I love about you is how grateful you are for the little things. It makes ordinary moments feel more meaningful, and it reminds me to appreciate them too. 💕
+
+Day 97 – Integrity ❤️
+Hey Sweet Peaches 🍑,
+Your actions match your values, and that’s something I deeply respect. Integrity isn’t always easy, but you carry it naturally. It makes you someone people can trust. 🌸
+
+Day 98 – Cheerfulness 🌈
+Hey Sunshine Spark ✨,
+You have a way of brightening people’s days without even trying. Your cheerful energy is contagious, and I genuinely think the world feels a little happier when you’re smiling. 🥰
+
+Day 99 – Selflessness 🌷
+Hey Love Muffin Deluxe 🧁,
+You often think about others before thinking about yourself. While I hope you always take care of yourself too, I want you to know that your selflessness is one of the reasons people love having you in their lives. ❤️
+
+Day 100 – Beautiful Soul 💖
+Hey My Favourite Munchkin 🥹,
+For Day 100, I wanted to celebrate something bigger than a single quality—your beautiful soul. Every kind gesture, every thoughtful word, every smile, every strength, and every wonderful thing about you comes together to create the person you are. And honestly? The more I get to know you, the more I realize just how rare and special you truly are. Thank you for being exactly who you are.
+
+Day 101 – Playfulness 🎈
+Hey Sweetie Pie 🥧,
+I absolutely love your playful spirit. You bring so much joy into my life and make even ordinary moments feel incredibly fun. 🥰
+
+Day 102 – Ambition 🚀
+Hey Star Gazer 🌠,
+Watching you chase your dreams is so inspiring. Your ambition and drive make me so proud to be by your side. 💖
+
+Day 103 – Spontaneity 🎢
+Hey Wildflower 🌺,
+I love how you can turn a boring day into an adventure. Your spontaneous ideas always keep our relationship exciting and fresh. ✨
+
+Day 104 – Vulnerability 🥺
+Hey My Safe Place 🏡,
+Thank you for trusting me enough to open up. Your vulnerability is a strength that brings us closer together every single day. 🤍
+
+Day 105 – Insightfulness 🧠
+Hey Smarty Pants 🤓,
+You have such a deep understanding of the world. Your insightful comments always leave me amazed by how beautifully your mind works. 🌷
+
+Day 106 – Eloquence 🗣️
+Hey Songbird 🕊️,
+The way you express yourself is genuinely captivating. You always know the exact right words to say, and I love listening to you speak. ❤️
+
+Day 107 – Wit ⚡
+Hey Clever Girl 😏,
+Your quick wit always catches me off guard in the best way possible. You keep me on my toes and constantly make me laugh. 😂
+
+Day 108 – Charm ✨
+Hey Charmer 😉,
+You have this natural magnetism that draws people to you. I am completely mesmerized by your charm, and I always will be. 🥰
+
+Day 109 – Tenacity 🧗‍♀️
+Hey Fierce One 🐯,
+When things get tough, you dig your heels in. Your tenacity is incredible, and I deeply admire your refusal to easily give up. 💪
+
+Day 110 – Diligence 📝
+Hey Busy Bee 🐝,
+You put so much care and effort into everything you do. Your diligence doesn't go unnoticed, and I admire your incredible work ethic. 🌟
+
+Day 111 – Affection 🤗
+Hey Cuddle Bug 🐛,
+Your hugs and sweet touches melt my heart completely. You are so affectionate, and it makes me feel so incredibly loved and secure. 💕
+
+Day 112 – Sweetness 🍭
+Hey Sugar 🍬,
+You have the sweetest soul I have ever known. Every little thing you do is laced with a sweetness that brightens my whole world. 🌸
+
+Day 113 – Serenity 🧘‍♀️
+Hey Peaceful Heart 🪷,
+You bring such calming energy into my life. Just sitting next to you gives me a sense of serenity I can't find anywhere else. 🍃
+
+Day 114 – Radiance 🌅
+Hey Sunburst 🌤️,
+You absolutely glow from the inside out. Your radiance lights up every room you walk into, and I am so lucky to bask in it. ✨
+
+Day 115 – Approachability 🚪
+Hey Friendly Face 😊,
+People feel safe coming to you because you are so welcoming. Your approachability is a rare gift that makes everyone feel at home. 💛
+
+Day 116 – Graciousness 🥂
+Hey Elegant Lady 🦢,
+You handle compliments, gifts, and even challenges with such grace. Your graciousness shows the true beauty of your character. 🌹
+
+Day 117 – Sympathy 🩹
+Hey Gentle Soul 🕊️,
+Your ability to feel for others is profoundly beautiful. You offer sympathy so freely, making the world a softer place for everyone around you. 🤍
+
+Day 118 – Tolerance 🌍
+Hey Open Heart 👐,
+You accept people as they are without trying to change them. Your tolerance and patience with the world are things I deeply look up to. 🌸
+
+Day 119 – Acceptance ✅
+Hey My Haven 🏕️,
+You love me exactly as I am, flaws and all. Your unconditional acceptance is the greatest gift you could ever give me. 🥰
+
+Day 120 – Inclusivity 🤝
+Hey Welcomer 🎪,
+You always make sure nobody feels left out. Your inclusive nature proves just how big and beautiful your heart truly is. 💖
+
+Day 121 – Drive 🏎️
+Hey Go-Getter 🏆,
+Your internal motivation is absolutely stellar. When you set your sights on a goal, your drive to achieve it is nothing short of breathtaking. 🔥
+
+Day 122 – Perseverance ⛰️
+Hey Mountain Climber 🧗‍♀️,
+You push through obstacles with such quiet power. Your perseverance inspires me to be stronger in my own life. 🌷
+
+Day 123 – Punctuality ⏰
+Hey Timely Beauty ⏳,
+It might seem small, but I love that you value our time. Your punctuality shows how much you respect and care for the people in your life. ❤️
+
+Day 124 – Precision 🎯
+Hey Sharp Eye 🦅,
+You pay attention to the exact details. Whether in your work or your hobbies, your precision always guarantees amazing results. ✨
+
+Day 125 – Organization 🗂️
+Hey Planner 🗓️,
+You keep things running so smoothly. Your organized mind helps bring order to chaos, and I honestly don't know what I'd do without you. 😅💕
+
+Day 126 – Initiative 🚀
+Hey Trailblazer 🛤️,
+You never wait around for things to happen; you make them happen. Taking the initiative is just one more reason you are so impressive. 🌟
+
+Day 127 – Trustworthiness 🔐
+Hey My Confidant 🤫,
+I know my secrets, my heart, and my future are safe with you. Your trustworthiness is the rock-solid foundation of everything we share. 🤍
+
+Day 128 – Devotion 🛐
+Hey Loyal Heart 💖,
+The way you dedicate yourself to our relationship is beautiful. Your steady devotion makes me feel like the luckiest person on earth. 🌹
+
+Day 129 – Steadfastness ⚓
+Hey My Anchor 🚢,
+Through all of life's storms, you remain unshaken. Your steadfast presence gives me the courage to face absolutely anything. 🥰
+
+Day 130 – Modesty 🙈
+Hey Humble Beauty 🌸,
+You are amazing, but you never brag. Your modesty makes your achievements shine even brighter because of the graceful way you carry them. 🌷
+
+Day 131 – Poise 💃
+Hey Queen 👑,
+You carry yourself with such elegant balance. Your poise under pressure is incredible, and you always handle things with such class. ✨
+
+Day 132 – Adventurousness 🗺️
+Hey Explorer 🧭,
+You are always ready to try something new. Your adventurous spirit keeps our lives full of wonderful memories and endless fun. 🎒
+
+Day 133 – Uniqueness 🦄
+Hey One-of-a-Kind 🎨,
+There is nobody else in the universe quite like you. I am endlessly fascinated by your unique quirks and beautifully distinct personality. 💖
+
+Day 134 – Originality 💡
+Hey Creator 🛠️,
+You never just follow the crowd. Your original ideas and fresh perspectives constantly remind me of how brilliant you truly are. 🌟
+
+Day 135 – Boldness 💥
+Hey Fearless 🦸‍♀️,
+You aren't afraid to stand up for what you believe in. Your boldness is incredibly attractive and makes me respect you so much. ❤️
+
+Day 136 – Zest 🍋
+Hey Energy Burst 🎆,
+You live life with such a refreshing flavor. Your zest for everyday experiences makes me want to soak up every single moment with you. ☀️
+
+Day 137 – Exuberance 🎊
+Hey Joyful Spirit 🎈,
+Your high energy and sheer excitement are totally infectious. Your exuberance makes every celebration feel ten times brighter. 🥰
+
+Day 138 – Brilliance 💎
+Hey Genius 🧠,
+You are just flat-out incredibly smart. Your brilliance constantly amazes me, and I love having deep conversations with you. ✨
+
+Day 139 – Logic 🧩
+Hey Thinker 🔬,
+When my emotions are high, your logical mind grounds us. You reason through things so beautifully, and I appreciate your clarity so much. 🌷
+
+Day 140 – Perceptiveness 👁️
+Hey Mind Reader 🔮,
+You notice things before anyone else does. Your perceptiveness makes me feel so understood, even when I don't say a word. 🤍
+
+Day 141 – Vision 🔭
+Hey Dreamer 🌌,
+I love the way you look at our future. Your vision for what life can be gives us both such a beautiful direction to walk toward. 🌅
+
+Day 142 – Cleverness 🦊
+Hey Sly Fox 🍂,
+You always find the most ingenious solutions to problems. Your cleverness gets us out of jams and always leaves me thoroughly impressed. 💖
+
+Day 143 – Focus 🎯
+Hey Laser Beam ⚡,
+When you zone in on something, nothing can distract you. Your intense focus is a superpower that helps you achieve everything you want. 💪
+
+Day 144 – Memory 📸
+Hey Elephant 🐘,
+You remember the tiniest details from our past. Your amazing memory makes me feel so cherished because you hold onto all our special moments. 🥰
+
+Day 145 – Expressiveness 🎭
+Hey Open Book 📖,
+Your face shows exactly what you’re feeling, and I love that about you. Your expressiveness makes communicating with you so genuine and real. 🌸
+
+Day 146 – Magnetism 🧲
+Hey Attraction 💫,
+I simply cannot stay away from you. You possess a natural magnetism that constantly pulls my heart back to yours, no matter where we are. ❤️
+
+Day 147 – Hospitality 🍵
+Hey Perfect Hostess 🏡,
+You make everyone feel like an honored guest. Your warm hospitality proves that your heart is always focused on giving to others. 🌷
+
+Day 148 – Receptiveness 📡
+Hey Great Listener 🎧,
+You never shut down my ideas. Your receptiveness to feedback and new thoughts makes growing together such an easy and beautiful process. ✨
+
+Day 149 – Intuition 🦋
+Hey Mystic 🌙,
+Your gut feelings are always spot on. I trust your intuition completely, and it has guided us beautifully so many times. 🤍
+
+Day 150 – Consistency 🔄
+Hey My Rock 🪨,
+You are the beautiful constant in my ever-changing world. I love knowing I can always count on you to be exactly who you are. 💖
+
+Day 151 – Harmony 🎶
+Hey Melody 🎵,
+You bring balance and peace into our relationship. The harmony we share is all thanks to your gentle and loving nature. 🌸
+
+Day 152 – Articulateness 🎙️
+Hey Wordsmith 🖋️,
+You explain your feelings with such stunning clarity. Your articulateness prevents so many misunderstandings and keeps our bond so incredibly strong. 🌟
+
+Day 153 – Nuance 🌈
+Hey Deep Thinker 🌊,
+You don't just see the world in black and white. You appreciate the nuance in everything, which makes your perspective so incredibly rich. 🥰
+
+Day 154 – Discernment ⚖️
+Hey Wise Judge 🦉,
+You have a fantastic radar for what is right and wrong. Your discernment protects us and always leads you to make the best choices. 🌷
+
+Day 155 – Foresight 🔮
+Hey Forward Thinker 🛤️,
+You plan for things I haven’t even thought of yet. Your foresight keeps us secure and proves how deeply you care about our future. ❤️
+
+Day 156 – Objectivity 📏
+Hey Fair Mind ⚖️,
+Even in an argument, you can step back and look at the facts. Your objectivity is a mature quality that I respect more than words can say. ✨
+
+Day 157 – Candor 💬
+Hey Straight Shooter 🏹,
+You tell me the truth, even when it’s hard. I value your candor above almost anything else because I know I can always trust your word. 🤍
+
+Day 158 – Directness ➡️
+Hey No-Nonsense 🛑,
+You don't play games with my heart. Your directness saves us so much time and makes loving you the easiest thing in the world. 💖
+
+Day 159 – Transparency 🪟
+Hey Clear Glass 🧊,
+There are no hidden agendas with you. Your transparency builds a level of trust between us that is absolutely unbreakable. 🌸
+
+Day 160 – Genuineness 🥇
+Hey Real Deal 💯,
+You are 100% authentic all the time. Your genuineness is so incredibly refreshing in a world full of people pretending to be something else. 🥰
+
+Day 161 – Earnestness 🥺
+Hey Sincere Heart 🤍,
+When you say something sweet, I feel it in my soul. Your earnestness ensures that your love always feels deep, real, and incredibly moving. 🌷
+
+Day 162 – Vitality 🌱
+Hey Life Force 🌿,
+You have such a vibrant energy pulsing through you. Your vitality wakes me up and makes me want to live life to the absolute fullest. ✨
+
+Day 163 – Liveliness 💃
+Hey Party Starter 🎊,
+You are the life of my everyday party. Your liveliness keeps the atmosphere bright and ensures I am always smiling when you’re around. ❤️
+
+Day 164 – Buoyancy 🎈
+Hey Floaty ☁️,
+No matter how hard life pushes you down, you always bounce back up. Your emotional buoyancy is truly awe-inspiring. 🌅
+
+Day 165 – Lightheartedness 🪁
+Hey Breeze 🌬️,
+You don't let small things drag you down. Your lightheartedness keeps our relationship feeling fun, breezy, and completely stress-free. 🌸
+
+Day 166 – Mirth 😂
+Hey Giggles 🤭,
+Your quiet amusement at the world is so cute. The mirth in your eyes when something funny happens is my absolute favorite sight. 💖
+
+Day 167 – Joyfulness 🎇
+Hey Happy Pill 💊,
+You carry an inner joy that circumstances cannot shake. Your joyfulness is my favorite melody, and I want to listen to it forever. 🥰
+
+Day 168 – Blissfulness 😌
+Hey Cloud Nine ☁️,
+When we are cuddled up, you have this look of pure bliss. Seeing you blissful is the ultimate goal of my entire life. 🌷
+
+Day 169 – Amiability 🐶
+Hey Sweet Friend 🐾,
+You are just so easy to get along with. Your amiability makes you not just an amazing girlfriend, but my absolute best friend. 🤍
+
+Day 170 – Affability 👋
+Hey Social Butterfly 🦋,
+You can strike up a conversation with anyone. Your affability makes me so proud to hold your hand in any room we walk into. ✨
+
+Day 171 – Geniality ☕
+Hey Warm Welcome 🌻,
+Your polite and cheerful manner puts everyone at ease. Your geniality makes you the kind of person everyone wants to be around. ❤️
+
+Day 172 – Cordiality 🤝
+Hey Polite Princess 👑,
+You treat absolutely everyone with respect. Your cordiality shows your high class and the brilliant way you were raised. 🌸
+
+Day 173 – Sociability 🥂
+Hey Mingle Queen 👑,
+You thrive in a crowd, bringing smiles to everyone. Your sociability makes our shared life full of wonderful friends and great memories. 💖
+
+Day 174 – Companionship 👫
+Hey Partner in Crime 🕵️‍♀️,
+Doing absolutely nothing with you is my favorite activity. The pure companionship we share is the greatest treasure of my life. 🥰
+
+Day 175 – Kinship 🧬
+Hey Soulmate 🔗,
+I feel like our souls are cut from the exact same cloth. The kinship I feel with you proves that we were truly meant to be together. 🌷
+
+Day 176 – Broad-mindedness 🌌
+Hey Horizon 🌅,
+Your willingness to accept completely new concepts is amazing. Your broad-mindedness ensures we will never stop growing together. ✨
+
+Day 177 – Sophistication 🍸
+Hey Classy Lady 👠,
+You have such elegant taste and refined manners. Your sophistication makes me feel like I’m dating a literal movie star. 🤍
+
+Day 178 – Refinement 💎
+Hey Polished Gem 💍,
+You always seek to improve and elevate yourself. Your refinement shows in the beautiful way you speak, act, and love. ❤️
+
+Day 179 – Class 🎩
+Hey High Standard 📏,
+You never stoop to petty drama. Your sheer class keeps you above the noise and makes you so deeply respectable. 🌸
+
+Day 180 – Excellence 🌟
+Hey Overachiever 🥇,
+You don't do things halfway. Your commitment to excellence in every part of your life pushes me to be a better person. 💖
+
+Day 181 – Magnificence 🎆
+Hey Masterpiece 🖼️,
+There is no other word for it—you are magnificent. Your entire being is a work of art that I am so incredibly lucky to witness. 🥰
+
+Day 182 – Uprightness 📏
+Hey Moral Compass 🧭,
+You always choose to do the right thing, even when no one is looking. Your uprightness is the core of your gorgeous character. 🌷
+
+Day 183 – Morality 🕊️
+Hey Good Heart ❤️,
+Your deep sense of right and wrong is unshakeable. Your strict morality makes you the most trustworthy partner I could ever ask for. ✨
+
+Day 184 – Virtue 😇
+Hey Angel 👼,
+You possess a goodness that is incredibly rare. Your virtue shines through your actions and makes me cherish you beyond words. 🤍
+
+Day 185 – Innocence 🌼
+Hey Pure Soul 🥛,
+Despite the harsh world, you have kept a beautiful, uncorrupted view of love. That sweet innocence is something I will always protect. 🌸
+
+Day 186 – Simplicity 🍵
+Hey Minimalist 🍃,
+You don't need extravagant things to be happy. I love your simplicity, because it shows that our love is truly enough for you. 💖
+
+Day 187 – Naturalness 🌿
+Hey Earth Girl 🌍,
+You don't have to try hard to be amazing. Your naturalness is so effortless, and your unfiltered self is my favorite version of you. 🥰
+
+Day 188 – Unpretentiousness 👖
+Hey Down-to-Earth 🏕️,
+You never put on airs or try to act superior. Your unpretentiousness makes you incredibly relatable and profoundly lovable. 🌷
+
+Day 189 – Tenderness 🧸
+Hey Soft Touch 🪶,
+The way you caress my face or hold my hand is so incredibly gentle. Your tenderness heals all my rough edges. ❤️
+
+Day 190 – Fondness 🍫
+Hey Sweet Gaze 👀,
+The way you look at me when you think I’m not paying attention says it all. The deep fondness in your eyes melts me every single time. ✨
+
+Day 191 – Romance 🌹
+Hey Romeo’s Juliet 🎭,
+You always find the most magical ways to make me feel special. Your sense of romance keeps the spark alive and burning so brightly. 🤍
+
+Day 192 – Intimacy 🕯️
+Hey Close Connection 🔒,
+We share a bond that goes deeper than just the physical. The emotional intimacy you create allows me to bare my entire soul to you. 🌸
+
+Day 193 – Closeness 🫂
+Hey My Shadow 👤,
+I love the proximity of our hearts. The closeness we share makes me feel like we are two halves of the exact same whole. 💖
+
+Day 194 – Belief 🙏
+Hey Believer 🌠,
+You believe in me even when I doubt myself. Your unwavering belief is the fuel that keeps me going on my hardest days. 🥰
+
+Day 195 – Conviction 🏛️
+Hey Firm Stance 🛑,
+When you know something is right, you stand by it fiercely. I admire the deep conviction you hold in your values and in our love. 🌷
+
+Day 196 – Assurance 🛡️
+Hey Reassurer 🤝,
+You always know how to calm my anxieties. The quiet assurance you give me makes all my worries completely melt away. ❤️
+
+Day 197 – Autonomy 🦅
+Hey Independent Spirit 🕊️,
+I love that you are your own complete person. Your autonomy makes our choice to be together every day that much more meaningful. ✨
+
+Day 198 – Inspiration 💡
+Hey My Muse 🎨,
+Just watching you live your life makes me want to be better. You are a constant source of inspiration to my heart and mind. 🤍
+
+Day 199 – Motivation ⚡
+Hey Hype Woman 📣,
+You push me to achieve things I never thought possible. Your constant motivation has completely changed the trajectory of my life. 🌸
+
+Day 200 – Validation ✅
+Hey My Cheerleader 🎀,
+You never make my feelings seem small or silly. The validation you offer makes me feel incredibly seen, heard, and deeply loved. 💖
+
+Day 201 – Affirmation 🗣️
+Hey Sweet Words 🍯,
+You are so generous with your compliments. Your daily affirmations remind me of how lucky I am and keep my heart soaring. 🥰
+
+Day 202 – Communication 📞
+Hey Open Channel 📡,
+We never have to guess what the other is feeling. Your stellar communication skills are the glue that holds our beautiful relationship together. 🌷
+
+Day 203 – Connection 🔌
+Hey Live Wire ⚡,
+The spark between us is undeniable. The deep, electric connection I feel with you is something I have never experienced with anyone else. ❤️
+
+Day 204 – Bond 🔗
+Hey Superglue 🧪,
+Nothing can break what we share. The invisible bond tying our hearts together only grows stronger with every passing day. ✨
+
+Day 205 – Unity ♾️
+Hey My Other Half 🌗,
+We truly operate as a team. The sense of unity I feel with you makes me know we can conquer absolutely anything life throws at us. 🤍
+
+Day 206 – Wholeness 🍕
+Hey Missing Piece 🧩,
+Before you, I didn't know I was missing anything. But your presence brings a wholeness to my life that I can no longer live without. 🌸
+
+Day 207 – Richness 🪙
+Hey Treasure 💎,
+You add so much depth and flavor to my existence. The richness of your personality makes every day feel like an absolute luxury. 💖
+
+Day 208 – Gracefulness 🦢
+Hey Ballerina 🩰,
+The way you move, speak, and laugh is just so fluid. Your physical and emotional gracefulness leaves me utterly enchanted. 🥰
+
+Day 209 – Smoothness 🧊
+Hey Velvet 🧣,
+You handle awkward situations with such ease. The smoothness with which you navigate life is something I am in constant awe of. 🌷
+
+Day 210 – Effortlessness 🍃
+Hey Natural Beauty 🌸,
+Loving you doesn't require any work at all. Everything about you is so pure that being with you is completely and beautifully effortless. ❤️
+
+Day 211 – Impulsiveness 🎢
+Hey Wild Card 🃏,
+Sometimes you do things just on a whim, and I love it. Your cute impulsiveness keeps my life vibrant and full of wonderful surprises. ✨
+
+Day 212 – Wonder 🌌
+Hey Stargazer 🔭,
+You look at the world with such beautiful awe. The wonder in your eyes when you see something new reminds me to appreciate the little things. 🤍
+
+Day 213 – Awe 🎆
+Hey Marvel 🎇,
+Honestly, I am simply in awe of you. The fact that a person as incredible as you exists, and chose me, leaves me completely speechless. 🌸
+
+Day 214 – Reverence 🛐
+Hey Sacred Heart 🕊️,
+You treat the things we share with such deep respect. Your reverence for our love makes me feel like what we have is truly holy. 💖
+
+Day 215 – Respectfulness 🤝
+Hey Courteous Soul 🙇‍♀️,
+You treat everyone, from CEOs to waiters, with the exact same dignity. Your respectfulness is a shining testament to your golden heart. 🥰
+
+Day 216 – Admiration 🤩
+Hey My Idol 🌟,
+I don't just love you; I look up to you. My admiration for the woman you are grows exponentially with every passing sunrise. 🌷
+
+Day 217 – Adoration 😍
+Hey Worshipped One 👑,
+I completely and totally adore you. Every little quirk, every habit, every smile—my adoration for you knows no bounds. ❤️
+
+Day 218 – Commitment 💍
+Hey For-Keeps 🗝️,
+You aren't afraid of the future with me. Your unwavering commitment gives me the safest, most beautiful home I could ever ask for. ✨
+
+Day 219 – Duty 🛡️
+Hey Guardian ⚔️,
+You take your promises seriously. Your sense of duty to the people you love shows a strength of character that is incredibly rare. 🤍
+
+Day 220 – Accountability 📝
+Hey Honest One ⚖️,
+You own up to your mistakes and always strive to be better. Your accountability makes resolving our little bumps so easy and peaceful. 🌸
+
+Day 221 – Constancy 🕰️
+Hey North Star ⭐,
+In a world that is always spinning, you are my fixed point. Your constancy is the comfort that gets me through every single day. 💖
+
+Day 222 – Resoluteness 🧱
+Hey Unshakable 🏔️,
+Once you make up your mind, nothing can deter you. I love your resoluteness because it shows how wonderfully strong you are. 🥰
+
+Day 223 – Purposefulness 🎯
+Hey Driven Soul 🚀,
+You do everything with absolute intention. Your purposefulness ensures that you aren't just drifting through life, but beautifully leading it. 🌷
+
+Day 224 – Intentness 🔍
+Hey Focused Eyes 👀,
+When you listen to me, you give me your complete, undivided self. That deep intentness makes me feel like the most important person alive. ❤️
+
+Day 225 – Concentration 🧠
+Hey Mastermind ♟️,
+I love watching you get lost in your work or hobbies. Your deep concentration is actually incredibly attractive to me. ✨
+
+Day 226 – Attention 👂
+Hey Great Observer 🔎,
+You never miss a haircut, a sigh, or a change in my mood. Your close attention makes me feel incredibly cherished. 🤍
+
+Day 227 – Awareness 🧘‍♀️
+Hey Mindful Spirit 🍃,
+You are so in tune with your surroundings and your emotions. Your deep awareness keeps our relationship incredibly healthy. 🌸
+
+Day 228 – Perception 👓
+Hey Mind Reader 🧠,
+You always know exactly what’s going on beneath the surface. Your perception is a superpower that always keeps us deeply connected. 💖
+
+Day 229 – Sentiment 💌
+Hey Keepsake 🗃️,
+You treasure memories and little tokens of our love. Your beautiful sentimentality means you value our history just as much as our future. 🥰
+
+Day 230 – Ardor 🔥
+Hey Fiery Heart ❤️‍🔥,
+The intense warmth you bring to our relationship is intoxicating. Your ardor keeps the passion between us burning so fiercely. 🌷
+
+Day 231 – Fervor 🎆
+Hey Passionate One 💥,
+You don't love in halves; you love with everything you have. The fervor of your affection is the greatest feeling in the world. ❤️
+
+Day 232 – Zeal ⚡
+Hey Enthusiast 🎢,
+You dive into life with so much energy. Your zeal for your passions makes you such a captivating and incredibly dynamic person. ✨
+
+Day 233 – Eagerness 🐶
+Hey Excited Puppy 🐾,
+I love how ready you are to jump into our next adventure. Your eagerness to experience life with me makes every day so fun. 🤍
+
+Day 234 – Keenness 🔪
+Hey Sharp Mind 🧠,
+Your intellect is razor-sharp. The keenness with which you analyze the world always leaves me deeply impressed and proud. 🌸
+
+Day 235 – Readiness 🎒
+Hey Always Prepared 🏕️,
+No matter what life throws at us, you are ready to handle it. Your readiness gives me so much peace of mind. 💖
+
+Day 236 – Willingness 👐
+Hey Open Arms 🤗,
+You are always willing to compromise, help out, and try new things. That willingness is the secret ingredient to our perfect harmony. 🥰
+
+Day 237 – Promptness ⏱️
+Hey On-Time ⏰,
+You never leave me waiting. Your promptness shows how much you value me, and I appreciate it more than you know. 🌷
+
+Day 238 – Alacrity 🏃‍♀️
+Hey Quick Step 👟,
+You respond to my needs so quickly and cheerfully. Your loving alacrity proves that taking care of each other is your priority. ❤️
+
+Day 239 – Swiftness 🦅
+Hey Fast Reflexes ⚡,
+Whether it’s a quick joke or solving a sudden problem, you are so fast. Your swiftness keeps our life moving so smoothly. ✨
+
+Day 240 – Agility 🤸‍♀️
+Hey Gymnast 🏅,
+You pivot through life's unexpected changes with such ease. Your mental and emotional agility is truly a wonder to behold. 🤍
+
+Day 241 – Dexterity 🖐️
+Hey Skilled Hands 🧶,
+I love watching you create, cook, or just tie your shoes. The physical dexterity you have is just one more thing I find cute about you. 🌸
+
+Day 242 – Skillfulness 🛠️
+Hey Expert 🎓,
+You are so good at everything you set your mind to. Your skillfulness makes me brag about you to literally everyone I know. 💖
+
+Day 243 – Proficiency 📈
+Hey Master 🏆,
+It’s amazing watching you excel in your field. Your absolute proficiency is so inspiring and makes you incredibly attractive. 🥰
+
+Day 244 – Expertise 💼
+Hey Professional 🧠,
+When you talk about the things you know well, you absolutely shine. I love your expertise because I love seeing you in your element. 🌷
+
+Day 245 – Mastery 🧘‍♀️
+Hey Guru 🕉️,
+You have a mastery over your own emotions that takes some people a lifetime to achieve. Your emotional maturity is simply stunning. ❤️
+
+Day 246 – Knowledge 📚
+Hey Encyclopedia 📖,
+You know so many random, fascinating facts. The depth of your knowledge guarantees I will never, ever get bored talking to you. ✨
+
+Day 247 – Comprehension 🧠
+Hey Understander 💡,
+You don't just hear my words; you deeply grasp what they mean. Your comprehension of my heart is the greatest gift. 🤍
+
+Day 248 – Grasp 🤝
+Hey Firm Hold ⚓,
+You have such a solid grasp on what truly matters in life. Because of you, our priorities are always perfectly in order. 🌸
+
+Day 249 – Authority 👑
+Hey Boss Lady 👠,
+You take charge when you need to, and you do it so well. Your gentle authority is incredibly hot and totally admirable. 💖
+
+Day 250 – Vigor 💥
+Hey Powerhouse 🔋,
+You tackle life with such robust energy. The vigor you bring to our relationship keeps everything feeling so vibrantly alive. 🥰
+
+Day 251 – Energy ⚡
+Hey Live Battery 🔋,
+Even just sitting still, you emit this beautiful, positive frequency. Your energy is my absolute favorite place to reside. 🌷
+
+Day 252 – Spirit 👻
+Hey Beautiful Ghost 🌬️,
+The essence of who you are is so deeply good. Your uncrushable spirit is what made me fall in love with you in the first place. ❤️
+
+Day 253 – Soul 🌌
+Hey Old Soul 🕰️,
+There is a depth to you that goes beyond this lifetime. The beauty of your soul is what ties me to you forever. ✨
+
+Day 254 – Intellect 🎓
+Hey Brainiac 🧠,
+I am so deeply in love with your mind. Your sharp intellect makes every debate, joke, and conversation an absolute pleasure. 🤍
+
+Day 255 – Reason ⚖️
+Hey Voice of Reason 🗣️,
+When I am spinning out, you bring me back down. Your calm reason is the anchor I desperately need in my life. 🌸
+
+Day 256 – Rationality 📏
+Hey Grounded One 🪴,
+You don't let paranoia or fear take over. Your soothing rationality always lights the clearest path for us to walk down. 💖
+
+Day 257 – Sanity 🧘‍♀️
+Hey My Peace 🕊️,
+In a completely crazy world, you are my one true escape. You bring sanity to my days, and I am eternally grateful. 🥰
+
+Day 258 – Lucidity 💧
+Hey Clear Water 🌊,
+You see through the nonsense of life with perfect clarity. Your lucidity helps me understand the world so much better. 🌷
+
+Day 259 – Clarity 💎
+Hey Crystal 🧊,
+When you give me advice, everything suddenly makes sense. Your mental clarity is a guiding light that I deeply rely on. ❤️
+
+Day 260 – Glow 🌟
+Hey Luminous ✨,
+You literally radiate happiness. That special glow you get when you’re smiling is my absolute favorite sight in the universe. ✨
+
+Day 261 – Luster 💍
+Hey Pearl 🐚,
+You have this soft, beautiful shine about you that never fades. Your inner luster is permanent and absolutely breathtaking. 🤍
+
+Day 262 – Shine ☀️
+Hey Sunbeam 🌻,
+You outshine everyone else in the room without even trying. You were born to shine, and I’m just lucky to be in your light. 🌸
+
+Day 263 – Sparkle ✨
+Hey Glitter 🎇,
+There is a literal sparkle in your eyes when you laugh. It completely hypnotizes me and makes my heart skip a beat every time. 💖
+
+Day 264 – Gleam 🌠
+Hey Shooting Star 💫,
+The mischievous gleam you get when you're teasing me is so incredibly cute. It reminds me of how perfectly playful you are. 🥰
+
+Day 265 – Shimmer 🌌
+Hey Moonlight 🌙,
+You bring a gentle, magical shimmer to the darkest of my nights. Just your presence makes everything feel so much softer. 🌷
+
+Day 266 – Twinkle ✨
+Hey Little Star ⭐,
+The happy twinkle in your expression when you see dessert coming is the most endearing thing. I love every little expression you make. ❤️
+
+Day 267 – Flash 📸
+Hey Lightning ⚡,
+Your brilliant smile flashes and instantly makes my entire day better. It is the most beautiful curve on your body. ✨
+
+Day 268 – Burst 🎆
+Hey Firework 🎇,
+Your sudden bursts of affection or laughter are my favorite surprises. You keep my heart constantly leaping with joy. 🤍
+
+Day 269 – Outpouring 🌊
+Hey Waterfall 💦,
+The absolute outpouring of love you give me makes me feel invincible. I am drowning in your affection, and I never want to be rescued. 🌸
+
+Day 270 – Your Smile 😁
+Hey Bright Eyes ☀️,
+It cures my bad moods, lights up the room, and is simply the most beautiful thing I have ever seen. Keep smiling for me. 💖
+
+Day 271 – Your Voice 🎶
+Hey Siren 🧜‍♀️,
+Hearing you say my name is my favorite sound in the world. Your voice soothes me instantly and feels like home. 🥰
+
+Day 272 – Your Laugh 😂
+Hey Chuckles 🤭,
+It’s completely infectious. Whenever you burst into laughter, my heart fills with a warmth I simply cannot describe. 🌷
+
+Day 273 – Your Eyes 👀
+Hey Soul Gazer 🌌,
+I could get lost in them for absolute hours. They hold so much kindness, intelligence, and love that I’m forever captivated. ❤️
+
+Day 274 – Your Hugs 🤗
+Hey Warm Blanket 🧸,
+They are the only place I want to be after a long day. Being wrapped in your arms is the safest feeling in the world. ✨
+
+Day 275 – Your Scent 🌸
+Hey Sweet Perfume 🧴,
+It lingers on my clothes and in my mind. Just the scent of you brings me an incredible amount of comfort and joy. 🤍
+
+Day 276 – Your Touch 🤏
+Hey Magic Hands 🤲,
+Whether it’s a brush of the shoulder or holding my hand, the electricity of your touch sends shivers down my spine. 🌸
+
+Day 277 – Your Style 👗
+Hey Fashionista 🕶️,
+You always look so effortlessly put together. I love your unique style and the confident way you wear absolutely everything. 💖
+
+Day 278 – Your Taste 🍷
+Hey Connoisseur 🎨,
+From the music you play to the movies we watch, your taste is impeccable. You have introduced me to so much beauty. 🥰
+
+Day 279 – Your Cooking 🍳
+Hey Master Chef 👩‍🍳,
+Everything you make tastes like it was made with pure love. You nourish my soul just as much as you nourish my body. 🌷
+
+Day 280 – Your Singing 🎤
+Hey Popstar 🎧,
+Even if you’re just humming in the car, I love hearing it. Your little melodies make our everyday life feel like a romantic movie. ❤️
+
+Day 281 – Your Dancing 💃
+Hey Twirler 🩰,
+Watching you dance around the kitchen is pure joy. You let completely loose, and it makes me fall in love with you all over again. ✨
+
+Day 282 – Your Handwriting ✍️
+Hey Calligrapher 🖋️,
+The way you write is so elegant and distinctly you. I cherish every little note and card you have ever given me. 🤍
+
+Day 283 – Your Walk 🚶‍♀️
+Hey Runway Queen 👠,
+You walk with such cute confidence and grace. I honestly love just watching you walk toward me from across the room. 🌸
+
+Day 284 – Your Ideas 💡
+Hey Mastermind 🧠,
+Your brain is a treasure chest of amazing concepts. I am constantly blown away by the brilliant ideas you casually share. 💖
+
+Day 285 – Your Dreams ☁️
+Hey Dream Catcher 🕸️,
+The things you want for your life are so beautiful. I am so honored that I get to help you make those dreams a reality. 🥰
+
+Day 286 – Your Goals 🥅
+Hey Achiever 🏅,
+You set your sights high and you don't back down. Supporting your goals gives my life so much incredible meaning. 🌷
+
+Day 287 – Your Ambitions 🚀
+Hey Sky Flyer 🌌,
+You want to make a real mark on this world. I admire your ambitions and know you will achieve absolutely everything you desire. ❤️
+
+Day 288 – Your Passions 🔥
+Hey Firestarter 🎇,
+When you talk about what you love, your entire face lights up. I am so deeply in love with your beautiful passions. ✨
+
+Day 289 – Your Hobbies 🎨
+Hey Creator 🧶,
+Whether it’s reading, art, or anything else, I love how you dedicate time to what brings you joy. It makes you so well-rounded. 🤍
+
+Day 290 – Your Art 🖼️
+Hey Picasso 🖌️,
+The way you create beauty in this world is astounding. You leave a little bit of your gorgeous soul in everything you do. 🌸
+
+Day 291 – Your Music 🎶
+Hey DJ 🎧,
+The playlists you make are the soundtracks to my favorite memories. I love your connection to music and how you share it with me. 💖
+
+Day 292 – Your Writing 📝
+Hey Poet 📜,
+The texts and letters you write to me are my most prized possessions. You have a true gift for capturing your beautiful heart on paper. 🥰
+
+Day 293 – Your Reading 📖
+Hey Bookworm 🐛,
+I love seeing you completely engrossed in a good book. Your love for stories just proves how deep and imaginative your mind really is. 🌷
+
+Day 294 – Your Listening 👂
+Hey Safe Space 🛋️,
+You don’t just hear me; you truly listen. When I speak to you, I feel completely understood and endlessly validated. ❤️
+
+Day 295 – Your Speaking 🗣️
+Hey Orator 🎤,
+I could listen to you talk about literally anything. The sound of your voice sharing your thoughts is my favorite podcast. ✨
+
+Day 296 – Your Silence 🤫
+Hey Quiet Comfort ☕,
+We don’t always need to talk to feel connected. Sharing a comfortable, peaceful silence with you is an absolute luxury. 🤍
+
+Day 297 – Your Presence 🎁
+Hey My Present 🎀,
+Just being in the same room as you changes my entire mood. Your mere presence is enough to make any day a great one. 🌸
+
+Day 298 – Your Absence 🛫
+Hey Missed One 🥺,
+Even when you aren’t here, you are amazing. Your absence makes me realize just how incredibly massive the space you hold in my heart is. 💖
+
+Day 299 – Your Aura ✨
+Hey Glowing One 🌅,
+You carry a vibe that is pure magic. Your aura is so warm and inviting that everyone who meets you instantly loves you. 🥰
+
+Day 300 – Your Vibe ✌️
+Hey Chill Pill 💊,
+You just have the best energy to be around. Your vibe matches perfectly with mine, and I never want to be without it. 🌷
+
+Day 301 – Your Spirit 🕊️
+Hey Unbreakable 💎,
+Your core essence is made of such beautiful, strong stuff. The spirit you possess is what made me fall in love with you in the first place. ❤️
+
+Day 302 – Your Soul 🌌
+Hey Deep Diver 🌊,
+I have looked into the depths of who you are, and it is flawless. Your soul is the most beautiful thing I have ever encountered. ✨
+
+Day 303 – Your Heart ❤️
+Hey My Core 🎯,
+It is big, forgiving, and endlessly loving. Your heart is my home, and I will spend my life protecting it. 🤍
+
+Day 304 – Your Mind 🧠
+Hey Galaxy 🌌,
+It’s complex, fascinating, and totally captivating. Navigating the depths of your mind is the greatest adventure of my life. 🌸
+
+Day 305 – Your Body 💃
+Hey Gorgeous 🔥,
+You are stunning in every single way. Every curve, every freckle, every inch of you is absolute perfection to me. 💖
+
+Day 306 – Your Face 😍
+Hey Angel Face 👼,
+I could stare at it for eternity and never get bored. Waking up to your beautiful face is the greatest privilege of my life. 🥰
+
+Day 307 – Your Hair 💇‍♀️
+Hey Silky 🌬️,
+Whether it’s perfectly styled or a messy morning bun, I love it. Running my fingers through your hair is my favorite way to relax. 🌷
+
+Day 308 – Your Skin 🧴
+Hey Velvet Touch 🍑,
+You are so incredibly soft and radiant. Kissing your skin is a luxury I will absolutely never take for granted. ❤️
+
+Day 309 – Your Hands 🤲
+Hey Interlocked 🔗,
+They fit so perfectly right inside of mine. Your hands bring me comfort, love, and a feeling of complete safety. ✨
+
+Day 310 – Your Feet 👣
+Hey Cute Toes 🐾,
+Even the quirky little things about you are adorable to me. Everything about you from head to toe is completely loved by me. 🤍
+
+Day 311 – Your Shoulders 🤷‍♀️
+Hey Rest Stop 🛋️,
+They carry so much weight, yet they are where I rest my head. Thank you for letting me lean on your beautiful shoulders. 🌸
+
+Day 312 – Your Neck 🧣
+Hey Sweet Spot 💋,
+It’s my favorite place to leave a soft kiss. Every inch of you was designed absolutely perfectly in my eyes. 💖
+
+Day 313 – Your Lips 👄
+Hey Sweet Kisses 🍓,
+They are so soft, and they speak the most beautiful words. Kissing you is the highlight of every single day. 🥰
+
+Day 314 – Your Cheeks 😳
+Hey Blushing Beauty 🍎,
+When you smile, they light up perfectly. And when they get a little red, it’s the cutest thing I’ve ever seen. 🌷
+
+Day 315 – Your Nose 👃
+Hey Boop 👆,
+It wrinkles so perfectly when you laugh or scrunch your face. I love all your adorable little facial expressions. ❤️
+
+Day 316 – Your Ears 👂
+Hey Listener 🎶,
+They listen to my rambling, my worries, and my love. I love whispering my secrets and my sweet nothings right into them. ✨
+
+Day 317 – Your Forehead 🤕
+Hey Forehead Kisses 💋,
+The spot right between your eyes is my favorite place to place a gentle kiss. It’s my way of silently saying 'I protect you'. 🤍
+
+Day 318 – Your Eyebrows 🤨
+Hey Expressive One 🎭,
+They tell me what you’re thinking before you even speak. I love how expressive your entire beautiful face is. 🌸
+
+Day 319 – Your Eyelashes 🦋
+Hey Butterfly Kisses 🐛,
+They flutter so beautifully when you’re falling asleep. I love watching you rest because you look like a total angel. 💖
+
+Day 320 – Your Magic 🪄
+Hey Sorceress 🔮,
+You have completely enchanted me. The way you make all my sadness disappear truly feels like you possess real magic. 🥰
+
+Day 321 – Your Mystery 🕵️‍♀️
+Hey Enigma 🧩,
+Even though I know you so well, there’s always more to learn. I love that you will forever keep me delightfully guessing. 🌷
+
+Day 322 – Your Secrets 🤫
+Hey Vault 🏦,
+The fact that you share your deepest thoughts with me is an honor. I promise to always keep your precious secrets safe. ❤️
+
+Day 323 – Your Surprises 🎁
+Hey Plot Twist 🎢,
+Just when I think I know what’s coming, you surprise me with your sweetness. You keep my life beautifully unpredictable. ✨
+
+Day 324 – Your Gifts 🎀
+Hey Best Gifter 🛍️,
+You always know exactly what to give, whether it’s an object or just your time. You are so profoundly thoughtful. 🤍
+
+Day 325 – Your Talents 🌟
+Hey Prodigy 🏆,
+You are so gifted in so many incredible ways. Watching you utilize your talents makes my heart swell with massive pride. 🌸
+
+Day 326 – Your Skills 🛠️
+Hey Expert 🎓,
+You have worked hard to be good at what you do. I deeply admire the skills you have built and the effort you put in. 💖
+
+Day 327 – Your Abilities 🦸‍♀️
+Hey Superwoman 🦸‍♀️,
+You are capable of absolutely anything. Your abilities are limitless, and I am your biggest fan watching you soar. 🥰
+
+Day 328 – Your Strengths 💪
+Hey Power 🔋,
+You are so much stronger than you give yourself credit for. Your strengths hold us both up when the world gets heavy. 🌷
+
+Day 329 – Your Weaknesses 🥺
+Hey Human 🫂,
+They make you real, and they make you mine. I love your weaknesses because they are the spaces where I get to support you. ❤️
+
+Day 330 – Your Flaws 🧩
+Hey Perfection 💎,
+To the rest of the world, they might be flaws, but to me, they are perfect. I love every single thing that makes you exactly you. ✨
+
+Day 331 – Your Mistakes 🚫
+Hey Learner 📚,
+You don't let failures define you; you let them grow you. I love the graceful way you handle making a mistake. 🤍
+
+Day 332 – Your Successes 🍾
+Hey Champion 🥇,
+Every time you win, I feel like I win too. Celebrating your successes is one of my favorite things to do. 🌸
+
+Day 333 – Your Failures 📉
+Hey Resilient One 🌱,
+When you fall, you always get right back up. I admire how you handle failure just as much as how you handle success. 💖
+
+Day 334 – Your Triumphs 🎉
+Hey Victor 🏆,
+You have overcome so much to be where you are. Your life is a series of beautiful triumphs, and I am cheering you on. 🥰
+
+Day 335 – Your Victories 🥂
+Hey Conqueror 👑,
+Big or small, your victories deserve to be celebrated. I love watching you conquer your days with such grace. 🌷
+
+Day 336 – Your Struggles 🧗‍♀️
+Hey Fighter 🥊,
+You don't let hard times make you bitter. I love how you navigate your struggles and keep your heart so remarkably soft. ❤️
+
+Day 337 – Your Journey 🛤️
+Hey Traveler 🧳,
+Everything you have been through made you the woman I love. I cherish your journey because it led you right to me. ✨
+
+Day 338 – Your Past 🕰️
+Hey History 📜,
+I love everything that shaped you. Your past gave you your wisdom, and I honor every single step you took before we met. 🤍
+
+Day 339 – Your Present 🎁
+Hey Here and Now 🧘‍♀️,
+The way you show up for today is beautiful. I love the life we are building right now in this exact beautiful moment. 🌸
+
+Day 340 – Your Future 🔮
+Hey Tomorrow 🌅,
+I am so incredibly excited for where you are going. Knowing your future is tied to mine is the greatest comfort I have. 💖
+
+Day 341 – Your Destiny 🌠
+Hey Fate 🌌,
+I truly believe you were destined for absolute greatness. I am just so happy that your destiny decided to intersect with mine. 🥰
+
+Day 342 – Your Fate 🔗
+Hey Written in the Stars ✨,
+I don’t know much about fate, but I know we were meant to be. I love how you embrace life and whatever it brings. 🌷
+
+Day 343 – Your Luck 🍀
+Hey Lucky Charm 🐞,
+Sometimes you have the best stroke of luck, and it’s adorable. But really, I am the lucky one for getting to keep you. ❤️
+
+Day 344 – Your Fortune 🔮
+Hey Wealthy Heart 🪙,
+You are rich in love, kindness, and spirit. The fortune of knowing you is greater than all the money in the entire world. ✨
+
+Day 345 – Your Blessings 🙏
+Get Blessed One 🕊️,
+You don't just receive blessings; you are one. You are a literal blessing to everyone who is lucky enough to know you. 🤍
+
+Day 346 – Your Prayers 🤲
+Hey Faithful Heart 🕯️,
+The things you hope and wish for show the purity of your soul. Your quiet prayers and good intentions mean the world to me. 🌸
+
+Day 347 – Your Hopes 🎈
+Hey Optimist ☀️,
+You always hope for the best in people and situations. Your hopeful nature keeps the darkness of the world completely at bay. 💖
+
+Day 348 – Your Wishes 🌠
+Hey Wishbone 💫,
+Whatever you wish for, I want to make it come true. Your heart’s desires are my absolute highest priorities. 🥰
+
+Day 349 – Your Fantasies 🎠
+Hey Dreamer 🏰,
+I love hearing about the wild, wonderful things you imagine. Your mind is a playground, and I love being invited inside. 🌷
+
+Day 350 – Your Imagination 🧠
+Hey Creator 🌌,
+There are no limits to what you can conjure up. Your beautiful imagination brings so much color to my otherwise black-and-white world. ❤️
+
+Day 351 – Your Daydreams ☁️
+Hey Head in the Clouds ⛅,
+When you zone out and smile, I know you’re somewhere beautiful. I love your daydreams and the cute look you get when you’re in them. ✨
+
+Day 352 – Your Trusting Nature 🤝
+Hey Open Heart 👐,
+Despite being hurt, you still choose to trust. That bravery is incredible, and I promise to guard your trust with my life. 🤍
+
+Day 353 – Your Faith 🙏
+Hey Believer 🕊️,
+Your ability to have faith in the unseen is so inspiring. You ground us both in the belief that everything will be okay. 🌸
+
+Day 354 – Your Beliefs 📜
+Hey Firm Foundation 🧱,
+You stand by your core beliefs no matter what. That structural integrity of your character is so deeply attractive to me. 💖
+
+Day 355 – Your Values ⚖️
+Hey Moral Compass 🧭,
+You value love, honesty, and kindness above everything. Because your values are so perfect, our relationship is perfect too. 🥰
+
+Day 356 – Your Principles 📏
+Hey Rule Maker 📐,
+You never compromise on your integrity. The principles you live by make you the most respectable woman I have ever known. 🌷
+
+Day 357 – Your Morals 🕊️
+Hey Goodness 🥛,
+At your core, you are simply a good, good person. Your morals guide you beautifully through a very complicated world. ❤️
+
+Day 358 – Your Ethics 💼
+Hey Upright One ⚖️,
+You never take the easy, wrong way out. The ethics you display in every situation make me burst with immense pride. ✨
+
+Day 359 – Your Standards 📏
+Hey High Bar 🏆,
+You expect the best from yourself and those around you. Thank you for holding me to your standards and making me a better man. 🤍
+
+Day 360 – Your Boundaries 🛑
+Hey Protector 🛡️,
+You know how to protect your peace, and I respect that so much. Your boundaries ensure that our love stays incredibly healthy. 🌸
+
+Day 361 – Your Limits 🧗‍♀️
+Hey Boundary Pusher 🚀,
+You know your limits, but you’re never afraid to push them. Watching you expand your comfort zone is truly awe-inspiring. 💖
+
+Day 362 – Your Infinite Love ♾️
+Hey Endless Ocean 🌊,
+The amount of love you give me is impossible to measure. Your infinite love is the greatest gift I have ever received. 🥰
+
+Day 363 – Your Impact ☄️
+Hey Meteor 🌠,
+You leave a permanent mark on everyone you touch. The positive impact you have had on my life will last for absolute eternity. 🌷
+
+Day 364 – Your Essence 🍯
+Hey Sweet Nectar 🌻,
+Strip away everything else, and your core essence is pure light. You are fundamentally the most wonderful being in existence. ❤️
+
+Day 365 – You 💖
+Hey My Forever 💍,
+For the final day of this year, I just want to appreciate YOU. Not a single trait, not a body part, not a skill, but the entire, complete, perfect culmination of everything that makes you who you are. I love you, completely and unconditionally, today and for all the days of my life. ✨`;
+
+        const daysArray = rawData.split(/(?=Day \d+\s*–)/).filter(Boolean);
+        let messages = [];
+
+        daysArray.forEach(dayText => {
+            let lines = dayText.trim().split('\n');
+            let title = lines[0]; 
+            let body = lines.slice(1).join('\n').trim(); 
+            messages.push({ title: title, body: body });
+        });
+
+        // --- 2. NEW EMOJI EFFECTS (RAIN & BURST) ---
+        const cuteEmojis = ['🌸', '💖', '✨', '🦋', '🌷', '🥰', '💌', '💕', '🧸', '🤍'];
+
+        // Gentle Rain Effect
+        function createRainEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('rain-emoji');
+            emoji.innerText = cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
+            
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = Math.random() * 4 + 4 + 's'; 
+            emoji.style.transform = `scale(${Math.random() * 0.5 + 0.8})`; 
+
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, 8000);
+        }
+        
+        setInterval(createRainEmoji, 250);
+
+        // Burst Effect on Click/Tap
+        function createBurst(x, y) {
+            const burstCount = 8;
+            for (let i = 0; i < burstCount; i++) {
+                const emoji = document.createElement('div');
+                emoji.classList.add('burst-emoji');
+                emoji.innerText = cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
+                
+                emoji.style.left = x + 'px';
+                emoji.style.top = y + 'px';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 80 + 40; 
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+                const rot = (Math.random() * 360 - 180) + 'deg';
+                
+                emoji.style.setProperty('--tx', tx);
+                emoji.style.setProperty('--ty', ty);
+                emoji.style.setProperty('--rot', rot);
+                
+                document.body.appendChild(emoji);
+
+                setTimeout(() => {
+                    emoji.remove();
+                }, 700);
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            createBurst(e.clientX, e.clientY);
+        });
+
+        // --- 3. THE APP LOGIC ---
+        let currentViewingDay = 31;
+        let maxUnlockedDay = 31;
+
+        const lotusContainer = document.getElementById('bg-decor');
+        for(let i=0; i<12; i++) {
+            let lotus = document.createElement('div');
+            lotus.className = 'lotus';
+            lotus.innerHTML = '💮';
+            lotus.style.left = Math.random() * 100 + 'vw';
+            lotus.style.animationDuration = (12 + Math.random() * 15) + 's';
+            lotus.style.animationDelay = (Math.random() * 10) + 's';
+            lotusContainer.appendChild(lotus);
+        }
+
+        function getUnlockedDayCount() {
+            const startDateStr = localStorage.getItem('startDate');
+            if (!startDateStr) return 31;
+
+            const startDate = new Date(startDateStr);
+            startDate.setHours(0,0,0,0);
+            
+            const now = new Date();
+            const today = new Date(now);
+            today.setHours(0,0,0,0);
+            
+            const timeDiff = today.getTime() - startDate.getTime();
+            let daysPassed = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+            if (now.getHours() >= 7) {
+                daysPassed += 1;
+            }
+
+            let unlocked = daysPassed + 30;
+            unlocked = Math.max(31, unlocked);
+            
+            return Math.min(unlocked, 365);
+        }
+
+        function startJourney() {
+            if (!localStorage.getItem('startDate')) {
+                let today = new Date();
+                today.setHours(0,0,0,0);
+                localStorage.setItem('startDate', today.toISOString());
+            }
+
+            maxUnlockedDay = getUnlockedDayCount();
+            currentViewingDay = maxUnlockedDay; 
+            
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('app-screen').style.display = 'block';
+            
+            renderDay(currentViewingDay);
+        }
+
+        function renderDay(dayIndex) {
+            document.getElementById('day-counter').innerText = `Day ${dayIndex} of 365`;
+            document.getElementById('locked-msg').style.display = 'none';
+
+            if (dayIndex <= maxUnlockedDay) {
+                let data = messages[dayIndex - 1];
+                document.getElementById('msg-title').innerText = data.title;
+                document.getElementById('msg-body').innerText = data.body;
+                document.getElementById('msg-title').style.color = '#d81b60';
+                document.getElementById('msg-body').style.display = 'block';
+            } else {
+                document.getElementById('msg-title').innerText = "Locked 🔒";
+                document.getElementById('msg-body').innerText = "This postcard is still traveling to you! Check back tomorrow morning at 7:00 AM. 💌✨";
+                document.getElementById('msg-title').style.color = '#999';
+                document.getElementById('locked-msg').style.display = 'block';
+            }
+        }
+
+        function prevDay() {
+            if (currentViewingDay > 1) {
+                currentViewingDay--;
+                renderDay(currentViewingDay);
+            }
+        }
+
+        function nextDay() {
+            if (currentViewingDay < 365) {
+                currentViewingDay++;
+                renderDay(currentViewingDay);
+            }
+        }
+
+        // --- GALLERY LOGIC ---
+        function openGallery() {
+            document.getElementById('app-screen').style.display = 'none';
+            document.getElementById('gallery-screen').style.display = 'block';
+            
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+            
+            for (let i = 1; i <= maxUnlockedDay; i++) {
+                let data = messages[i - 1];
+                let item = document.createElement('div');
+                item.className = 'gallery-item';
+                
+                item.innerHTML = `
+                    <h4>Day ${i}</h4>
+                    <div class="g-title">${data.title.split('–')[1] ? data.title.split('–')[1].trim() : data.title}</div>
+                    <div class="g-preview">${data.body}</div>
+                `;
+                
+                item.onclick = (e) => {
+                    e.stopPropagation(); 
+                    currentViewingDay = i;
+                    showAppScreen();
+                };
+                grid.appendChild(item);
+            }
+        }
+
+        function showAppScreen() {
+            document.getElementById('gallery-screen').style.display = 'none';
+            document.getElementById('app-screen').style.display = 'block';
+            renderDay(currentViewingDay); 
+        }
+
+        // --- 4. CALENDAR GENERATOR (.ICS) ---
+        function downloadCalendarEvent() {
+            let d = new Date();
+            d.setDate(d.getDate() + 1);
+            
+            let year = d.getFullYear();
+            let month = String(d.getMonth() + 1).padStart(2, '0');
+            let day = String(d.getDate()).padStart(2, '0');
+            
+            let dtstart = `${year}${month}${day}T070000`;
+            let currentUrl = window.location.href;
+            
+            let icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//365 Reasons//App//EN
+BEGIN:VTIMEZONE
+TZID:Asia/Kolkata
+BEGIN:STANDARD
+TZOFFSETFROM:+0530
+TZOFFSETTO:+0530
+TZNAME:IST
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:${new Date().getTime()}@365reasons
+DTSTAMP:${year}${month}${day}T000000Z
+DTSTART;TZID=Asia/Kolkata:${dtstart}
+RRULE:FREQ=DAILY;COUNT=335
+SUMMARY:💌 Your Daily Love Letter is Ready!
+URL:${currentUrl}
+DESCRIPTION:Good morning, my beautiful wife! 🌸 It's 7 AM. It's time to read today's postcard. I love you! 🐶🤍\\n\\nClick here to open your postcard: ${currentUrl}
+BEGIN:VALARM
+TRIGGER:-PT0M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+            let blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            let link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', '365_Reasons_Daily_7AM.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert("Calendar reminder downloaded! Open the file on your phone to add the repeating event to your Calendar. 📅✨");
+        }
+
+        window.onload = function() {
+            // Uncomment the lines below ONLY if you want to skip the welcome screen for returning users.
+            // if (localStorage.getItem('startDate')) {
+            //     startJourney();
+            // }
+        }
+    </script>
+</body>
+</html>
